@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6C64E6D61ACF041B00CF0875 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C64E6D51ACF041B00CF0875 /* AppDelegate.swift */; };
+		6C64E6D81ACF041B00CF0875 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C64E6D71ACF041B00CF0875 /* ViewController.swift */; };
+		6C64E6DB1ACF041B00CF0875 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C64E6D91ACF041B00CF0875 /* Main.storyboard */; };
+		6C64E6DD1ACF041B00CF0875 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C64E6DC1ACF041B00CF0875 /* Images.xcassets */; };
+		6C64E6E01ACF041B00CF0875 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C64E6DE1ACF041B00CF0875 /* LaunchScreen.xib */; };
+		6C64E6EC1ACF041B00CF0875 /* BLETableScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C64E6EB1ACF041B00CF0875 /* BLETableScannerTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6C64E6E61ACF041B00CF0875 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6C64E6C81ACF041B00CF0875 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6C64E6CF1ACF041B00CF0875;
+			remoteInfo = BLETableScanner;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6C64E6D01ACF041B00CF0875 /* BLETableScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLETableScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C64E6D41ACF041B00CF0875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C64E6D51ACF041B00CF0875 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6C64E6D71ACF041B00CF0875 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6C64E6DA1ACF041B00CF0875 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6C64E6DC1ACF041B00CF0875 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6C64E6DF1ACF041B00CF0875 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		6C64E6E51ACF041B00CF0875 /* BLETableScannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BLETableScannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C64E6EA1ACF041B00CF0875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C64E6EB1ACF041B00CF0875 /* BLETableScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLETableScannerTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6C64E6CD1ACF041B00CF0875 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C64E6E21ACF041B00CF0875 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6C64E6C71ACF041B00CF0875 = {
+			isa = PBXGroup;
+			children = (
+				6C64E6D21ACF041B00CF0875 /* BLETableScanner */,
+				6C64E6E81ACF041B00CF0875 /* BLETableScannerTests */,
+				6C64E6D11ACF041B00CF0875 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6C64E6D11ACF041B00CF0875 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6C64E6D01ACF041B00CF0875 /* BLETableScanner.app */,
+				6C64E6E51ACF041B00CF0875 /* BLETableScannerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6C64E6D21ACF041B00CF0875 /* BLETableScanner */ = {
+			isa = PBXGroup;
+			children = (
+				6C64E6D51ACF041B00CF0875 /* AppDelegate.swift */,
+				6C64E6D71ACF041B00CF0875 /* ViewController.swift */,
+				6C64E6D91ACF041B00CF0875 /* Main.storyboard */,
+				6C64E6DC1ACF041B00CF0875 /* Images.xcassets */,
+				6C64E6DE1ACF041B00CF0875 /* LaunchScreen.xib */,
+				6C64E6D31ACF041B00CF0875 /* Supporting Files */,
+			);
+			path = BLETableScanner;
+			sourceTree = "<group>";
+		};
+		6C64E6D31ACF041B00CF0875 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6C64E6D41ACF041B00CF0875 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6C64E6E81ACF041B00CF0875 /* BLETableScannerTests */ = {
+			isa = PBXGroup;
+			children = (
+				6C64E6EB1ACF041B00CF0875 /* BLETableScannerTests.swift */,
+				6C64E6E91ACF041B00CF0875 /* Supporting Files */,
+			);
+			path = BLETableScannerTests;
+			sourceTree = "<group>";
+		};
+		6C64E6E91ACF041B00CF0875 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6C64E6EA1ACF041B00CF0875 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6C64E6CF1ACF041B00CF0875 /* BLETableScanner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C64E6EF1ACF041B00CF0875 /* Build configuration list for PBXNativeTarget "BLETableScanner" */;
+			buildPhases = (
+				6C64E6CC1ACF041B00CF0875 /* Sources */,
+				6C64E6CD1ACF041B00CF0875 /* Frameworks */,
+				6C64E6CE1ACF041B00CF0875 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BLETableScanner;
+			productName = BLETableScanner;
+			productReference = 6C64E6D01ACF041B00CF0875 /* BLETableScanner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6C64E6E41ACF041B00CF0875 /* BLETableScannerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C64E6F21ACF041B00CF0875 /* Build configuration list for PBXNativeTarget "BLETableScannerTests" */;
+			buildPhases = (
+				6C64E6E11ACF041B00CF0875 /* Sources */,
+				6C64E6E21ACF041B00CF0875 /* Frameworks */,
+				6C64E6E31ACF041B00CF0875 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6C64E6E71ACF041B00CF0875 /* PBXTargetDependency */,
+			);
+			name = BLETableScannerTests;
+			productName = BLETableScannerTests;
+			productReference = 6C64E6E51ACF041B00CF0875 /* BLETableScannerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6C64E6C81ACF041B00CF0875 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = yuryg;
+				TargetAttributes = {
+					6C64E6CF1ACF041B00CF0875 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					6C64E6E41ACF041B00CF0875 = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 6C64E6CF1ACF041B00CF0875;
+					};
+				};
+			};
+			buildConfigurationList = 6C64E6CB1ACF041B00CF0875 /* Build configuration list for PBXProject "BLETableScanner" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6C64E6C71ACF041B00CF0875;
+			productRefGroup = 6C64E6D11ACF041B00CF0875 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6C64E6CF1ACF041B00CF0875 /* BLETableScanner */,
+				6C64E6E41ACF041B00CF0875 /* BLETableScannerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6C64E6CE1ACF041B00CF0875 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C64E6DB1ACF041B00CF0875 /* Main.storyboard in Resources */,
+				6C64E6E01ACF041B00CF0875 /* LaunchScreen.xib in Resources */,
+				6C64E6DD1ACF041B00CF0875 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C64E6E31ACF041B00CF0875 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6C64E6CC1ACF041B00CF0875 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C64E6D81ACF041B00CF0875 /* ViewController.swift in Sources */,
+				6C64E6D61ACF041B00CF0875 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C64E6E11ACF041B00CF0875 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C64E6EC1ACF041B00CF0875 /* BLETableScannerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6C64E6E71ACF041B00CF0875 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6C64E6CF1ACF041B00CF0875 /* BLETableScanner */;
+			targetProxy = 6C64E6E61ACF041B00CF0875 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6C64E6D91ACF041B00CF0875 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C64E6DA1ACF041B00CF0875 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6C64E6DE1ACF041B00CF0875 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C64E6DF1ACF041B00CF0875 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6C64E6ED1ACF041B00CF0875 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6C64E6EE1ACF041B00CF0875 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6C64E6F01ACF041B00CF0875 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BLETableScanner/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6C64E6F11ACF041B00CF0875 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BLETableScanner/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		6C64E6F31ACF041B00CF0875 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BLETableScannerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BLETableScanner.app/BLETableScanner";
+			};
+			name = Debug;
+		};
+		6C64E6F41ACF041B00CF0875 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BLETableScannerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BLETableScanner.app/BLETableScanner";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6C64E6CB1ACF041B00CF0875 /* Build configuration list for PBXProject "BLETableScanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C64E6ED1ACF041B00CF0875 /* Debug */,
+				6C64E6EE1ACF041B00CF0875 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C64E6EF1ACF041B00CF0875 /* Build configuration list for PBXNativeTarget "BLETableScanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C64E6F01ACF041B00CF0875 /* Debug */,
+				6C64E6F11ACF041B00CF0875 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6C64E6F21ACF041B00CF0875 /* Build configuration list for PBXNativeTarget "BLETableScannerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C64E6F31ACF041B00CF0875 /* Debug */,
+				6C64E6F41ACF041B00CF0875 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6C64E6C81ACF041B00CF0875 /* Project object */;
+}
