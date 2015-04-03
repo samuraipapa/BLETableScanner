@@ -193,7 +193,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             for element in farPeripheralArray {
                 if (element.0 == peripheral.identifier.UUIDString){
-                    eleme
+                   //
                 }
             }
             
