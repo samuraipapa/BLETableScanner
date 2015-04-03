@@ -10,8 +10,15 @@ import UIKit
 import CoreBluetooth
 
 
+
+
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CBCentralManagerDelegate, CBPeripheralDelegate {
 
+    
+
+    
+    
     // BLE Stuff
     let myCentralManager = CBCentralManager()
     var peripheralArray = [CBPeripheral]() // create now empty array.
@@ -20,6 +27,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var nearPeripheralArray = [("UUIDString","RSSI","Name")]
     var farPeripheralArray = [("UUIDString","RSSI","Name")]
+    
+    var cleanAndSortedNearArray = [("UUIDString","RSSI","Name")]
+    var cleanAndSortedFarArray = [("UUIDString","RSSI","Name")]
     
     var formatedForCell = [("Title","SubTitle")]
     
@@ -30,9 +40,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
  
     
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -65,16 +79,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if indexPath.section == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("near", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = "\(nearPeripheralArray[indexPath.row].2)" + "\(nearPeripheralArray[indexPath.row].1)"
-            cell.detailTextLabel?.text = nearPeripheralArray[indexPath.row].0
+            cell.textLabel?.text = "\(cleanAndSortedNearArray[indexPath.row].1)" + "  \(cleanAndSortedNearArray[indexPath.row].2)"
+            cell.detailTextLabel?.text = cleanAndSortedNearArray[indexPath.row].0
             
             return cell
             
         }
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("far", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = "\(farPeripheralArray[indexPath.row].2)" + "\(farPeripheralArray[indexPath.row].1)"
-            cell.detailTextLabel?.text = farPeripheralArray[indexPath.row].0
+            cell.textLabel?.text = "\(cleanAndSortedFarArray[indexPath.row].1)" + "  \(cleanAndSortedFarArray[indexPath.row].2)"
+            cell.detailTextLabel?.text = cleanAndSortedFarArray[indexPath.row].0
             return cell
             
         }
@@ -156,7 +170,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         println("Services: \(advertisementData)")
         println("RSSI: \(RSSI) \r ")
         
-        
+
         
         if  RSSI.intValue < -80 {
             
@@ -167,9 +181,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             // sort array elment by size of
             
             
-            farPeripheralArray.insert(("Name:\(peripheral.name)", "RSSI:\(RSSI)" , "UUIDString: \(peripheral.identifier.UUIDString)"), atIndex: 0)
+         //   farPeripheralArray.insert(("\(peripheral.name)", "\(RSSI)" , "\(peripheral.identifier.UUIDString)"), atIndex: 0)
+            farPeripheralArray.append("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
+
+            cleanAndSortedFarArray = sorted(farPeripheralArray,{
+                (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
+                return str1.1.toInt() < str2.1.toInt()
+            })
+
+            
+
+        
         } else {
-            nearPeripheralArray.insert(("Name:\(peripheral.name)", "RSSI:\(RSSI)", "UUIDString: \(peripheral.identifier.UUIDString)"), atIndex: 0)
+    //        nearPeripheralArray.insert(("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)"), atIndex: 0)
+            nearPeripheralArray.append("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
+            cleanAndSortedNearArray = sorted(nearPeripheralArray,{
+                (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
+                return str1.1.toInt() > str2.1.toInt()
+            })
+            ////  from http://www.andrewcbancroft.com/2014/08/16/sort-yourself-out-sorting-an-array-in-swift/
+
         }
         
         tableView.reloadData()
@@ -187,6 +218,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         refreshArrays()
         tableView.reloadData()
     }
+    
+    
+    
+//    
+//     func sortArray(arrayToSort: Array ) -> Array {
+//        
+//        //  from http://www.andrewcbancroft.com/2014/08/16/sort-yourself-out-sorting-an-array-in-swift/
+//        
+//        let arrayOfIntsAsStrings = [("UUID","3", "Name"),("UUID","2","Name"),("UUID","1","Name"),("UUID","50","Name"),("UUID","53","Name"),("UUID","98","Name")]
+//        
+//        let sortedArray = sorted(arrayOfIntsAsStrings,{
+//            (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
+//            return str1.1.toInt() < str2.1.toInt()
+//        })
+//        
+//        return sortedArray
+//        
+//    }
     
 
 
@@ -230,6 +279,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         nearPeripheralArray.removeAll(keepCapacity: true)
         farPeripheralArray.removeAll(keepCapacity: false)
         
+        cleanAndSortedNearArray.removeAll(keepCapacity: true)
+        cleanAndSortedFarArray.removeAll(keepCapacity: false)
+        
     }
 
     
@@ -243,5 +295,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    
+    
+
+
+    
     
 }
