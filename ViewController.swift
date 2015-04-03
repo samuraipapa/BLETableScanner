@@ -186,7 +186,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             cleanAndSortedFarArray = sorted(farPeripheralArray,{
                 (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
-                return str1.1.toInt() < str2.1.toInt()
+                return str1.1.toInt() > str2.1.toInt()
             })
 
             
