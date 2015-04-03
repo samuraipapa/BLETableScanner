@@ -7,13 +7,25 @@
 //
 
 import UIKit
+import CoreBluetooth
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CBCentralManagerDelegate, CBPeripheralDelegate {
+
+    // BLE Stuff
+    let myCentralManager = CBCentralManager()
+    var peripheralArray = [CBPeripheral]() // create now empty array.
+
     var myPeripheralArray = ["Peripherial 1","Peripherial 2", "Peripherial 3"]
     
+    var formatedForCell = [("Title","SubTitle")]
+    
+
+    // UI Stuff
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var labelStatus: UILabel!
+ 
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,13 +84,120 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
 
 
-    @IBOutlet weak var refresh: UIButton!
     
+    // Mark   CBCentralManager Methods
+    
+    func centralManagerDidUpdateState(central: CBCentralManager!) {
+        
+        updateStatusLabel("centralManagerDidUpdateState")
+        
+        /*
+        typedef enum {
+        CBCentralManagerStateUnknown  = 0,
+        CBCentralManagerStateResetting ,
+        CBCentralManagerStateUnsupported ,
+        CBCentralManagerStateUnauthorized ,
+        CBCentralManagerStatePoweredOff ,
+        CBCentralManagerStatePoweredOn ,
+        } CBCentralManagerState;
+        */
+        switch central.state{
+        case .PoweredOn:
+            updateStatusLabel("poweredOn")
+            
+            
+        case .PoweredOff:
+            updateStatusLabel("Central State PoweredOFF")
+            
+        case .Resetting:
+            updateStatusLabel("Central State Resetting")
+            
+        case .Unauthorized:
+            updateStatusLabel("Central State Unauthorized")
+            
+        case .Unknown:
+            updateStatusLabel("Central State Unknown")
+            
+        case .Unsupported:
+            updateStatusLabel("Central State Unsupported")
+            
+        default:
+            updateStatusLabel("Central State None Of The Above")
+            
+        }
+        }
+
+    
+    
+    
+    
+    
+    
+    //  Mark UI Stuff
+
+        //REFRESH
     @IBAction func refreshed(sender: UIButton) {
         
         myPeripheralArray.append("Hay Hay Hay")
         tableView.reloadData()
     }
+    
+        // SCAN
+    @IBAction func scanButton(sender: UISwitch) {
+        if sender.on{
+            
+            myCentralManager.scanForPeripheralsWithServices(nil, options: nil )   // call to scan for services
+            printToMyTextView("Scanning for Peripherals")
+            
+        }else{
+            myCentralManager.stopScan()   // stop scanning to save power
+            printToMyTextView("Stop Scanning")
+            
+            if (peripheralArray.count > 0 ) {
+                myCentralManager.cancelPeripheralConnection(peripheralArray[0])
+            }
+        }
+
+        
+        
+    }
+
+    
+    
+    @IBAction func scanSwitch(sender: UISwitch) {
+        if sender.on{
+            
+            myCentralManager.scanForPeripheralsWithServices(nil, options: nil )   // call to scan for services
+            printToMyTextView("\r scanning for Peripherals")
+            
+        }else{
+            myCentralManager.stopScan()   // stop scanning to save power
+            printToMyTextView("stop scanning")
+            
+            if (peripheralArray.count > 0 ) {
+                myCentralManager.cancelPeripheralConnection(peripheralArray[0])
+            }
+        }
+    }
+    
+    
+    
+    func printToMyTextView(passedString: String){
+        labelStatus.text = passedString
+    }
+    
+    
+    func updateStatusLabel(passedString: String){
+        labelStatus.text = passedString
+    }
+    
+    
+    func updateStatusTitleAndSubTitle(passedString: String){
+        formatedForCell.append("added "," Added ")
+    }
+    
+
+
     
 
     /*
@@ -90,12 +209,5 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Pass the selected object to the new view controller.
     }
     */
-
-    
-    
-    
-    
-    
-    
     
 }

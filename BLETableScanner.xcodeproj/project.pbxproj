@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C6496AD1ACF137300D059F7 /* BLECode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6496AC1ACF137300D059F7 /* BLECode.swift */; };
 		6C64E6D61ACF041B00CF0875 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C64E6D51ACF041B00CF0875 /* AppDelegate.swift */; };
 		6C64E6DB1ACF041B00CF0875 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C64E6D91ACF041B00CF0875 /* Main.storyboard */; };
 		6C64E6DD1ACF041B00CF0875 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C64E6DC1ACF041B00CF0875 /* Images.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6C6496AC1ACF137300D059F7 /* BLECode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLECode.swift; sourceTree = "<group>"; };
 		6C64E6D01ACF041B00CF0875 /* BLETableScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLETableScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C64E6D41ACF041B00CF0875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C64E6D51ACF041B00CF0875 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 		6C64E6C71ACF041B00CF0875 = {
 			isa = PBXGroup;
 			children = (
+				6C6496AC1ACF137300D059F7 /* BLECode.swift */,
 				6C64E6D21ACF041B00CF0875 /* BLETableScanner */,
 				6C64E6E81ACF041B00CF0875 /* BLETableScannerTests */,
 				6C64E6D11ACF041B00CF0875 /* Products */,
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C6496AD1ACF137300D059F7 /* BLECode.swift in Sources */,
 				6C64E6FC1ACF09F700CF0875 /* ViewController.swift in Sources */,
 				6C64E6D61ACF041B00CF0875 /* AppDelegate.swift in Sources */,
 			);
@@ -405,6 +409,7 @@
 				6C64E6F11ACF041B00CF0875 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6C64E6F21ACF041B00CF0875 /* Build configuration list for PBXNativeTarget "BLETableScannerTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +418,7 @@
 				6C64E6F41ACF041B00CF0875 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
