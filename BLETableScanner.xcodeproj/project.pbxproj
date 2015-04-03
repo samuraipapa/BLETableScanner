@@ -12,7 +12,6 @@
 		6C64E6DD1ACF041B00CF0875 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C64E6DC1ACF041B00CF0875 /* Images.xcassets */; };
 		6C64E6E01ACF041B00CF0875 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C64E6DE1ACF041B00CF0875 /* LaunchScreen.xib */; };
 		6C64E6EC1ACF041B00CF0875 /* BLETableScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C64E6EB1ACF041B00CF0875 /* BLETableScannerTests.swift */; };
-		6C64E6F61ACF045900CF0875 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C64E6F51ACF045900CF0875 /* TableViewController.swift */; };
 		6C64E6FC1ACF09F700CF0875 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C64E6FB1ACF09F700CF0875 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +35,6 @@
 		6C64E6E51ACF041B00CF0875 /* BLETableScannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BLETableScannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C64E6EA1ACF041B00CF0875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C64E6EB1ACF041B00CF0875 /* BLETableScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLETableScannerTests.swift; sourceTree = "<group>"; };
-		6C64E6F51ACF045900CF0875 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewController.swift; path = ../TableViewController.swift; sourceTree = "<group>"; };
 		6C64E6FB1ACF09F700CF0875 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,7 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				6C64E6FB1ACF09F700CF0875 /* ViewController.swift */,
-				6C64E6F51ACF045900CF0875 /* TableViewController.swift */,
 				6C64E6D51ACF041B00CF0875 /* AppDelegate.swift */,
 				6C64E6D91ACF041B00CF0875 /* Main.storyboard */,
 				6C64E6DC1ACF041B00CF0875 /* Images.xcassets */,
@@ -217,7 +214,6 @@
 			files = (
 				6C64E6FC1ACF09F700CF0875 /* ViewController.swift in Sources */,
 				6C64E6D61ACF041B00CF0875 /* AppDelegate.swift in Sources */,
-				6C64E6F61ACF045900CF0875 /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
