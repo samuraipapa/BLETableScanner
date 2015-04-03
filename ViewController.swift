@@ -27,9 +27,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var nearPeripheralArray = [("UUIDString","RSSI","Name")]
     var farPeripheralArray = [("UUIDString","RSSI","Name")]
+    var miscPeripheralArray = [("UUIDString","RSSI","Name")]
+
     
     var cleanAndSortedNearArray = [("UUIDString","RSSI","Name")]
     var cleanAndSortedFarArray = [("UUIDString","RSSI","Name")]
+    var cleanAndSortedMiscArray = [("UUIDString","RSSI","Name")]
     
     var formatedForCell = [("Title","SubTitle")]
     
@@ -46,6 +49,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        refreshArrays()
         
         // Do any additional setup after loading the view.
     }
@@ -60,7 +64,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
      func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return 2
+        return 3
         
     }
     
@@ -69,15 +73,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Return the number of rows in the section.
         if section == 0 {
             return nearPeripheralArray.count
-        } else {
+        } else if section == 1 {
             return farPeripheralArray.count
+        } else {
+            return miscPeripheralArray.count
         }
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0{
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("near", forIndexPath: indexPath) as UITableViewCell
             cell.textLabel?.text = "\(cleanAndSortedNearArray[indexPath.row].1)" + "  \(cleanAndSortedNearArray[indexPath.row].2)"
             cell.detailTextLabel?.text = cleanAndSortedNearArray[indexPath.row].0
@@ -85,13 +91,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return cell
             
         }
-        else {
+        else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("far", forIndexPath: indexPath) as UITableViewCell
             cell.textLabel?.text = "\(cleanAndSortedFarArray[indexPath.row].1)" + "  \(cleanAndSortedFarArray[indexPath.row].2)"
             cell.detailTextLabel?.text = cleanAndSortedFarArray[indexPath.row].0
             return cell
             
+        }    else  {
+            let cell = tableView.dequeueReusableCellWithIdentifier("far", forIndexPath: indexPath) as UITableViewCell
+            cell.textLabel?.text = "\(cleanAndSortedMiscArray[indexPath.row].1)" + "  \(cleanAndSortedMiscArray[indexPath.row].2)"
+            cell.detailTextLabel?.text = cleanAndSortedMiscArray[indexPath.row].0
+            return cell
+            
         }
+
 
 
         // Configure the cell...
@@ -101,8 +114,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0{
             return "Close By"
-        }else{
+        }else if section == 1{
             return "Far Away"
+        } else {
+            return "Misc"
         }
     }
     
@@ -174,16 +189,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if  RSSI.intValue < -80 {
             
-//            var UUIDString = peripheral.description[valueFor]
-            
             // for each element in the array. check the uuidstring. if so remove that old array entry. place this one in relation to it's rssi
             
-            // sort array elment by size of
+            for element in farPeripheralArray {
+                if (element.0 == peripheral.identifier.UUIDString){
+                    eleme
+                }
+            }
             
             
-         //   farPeripheralArray.insert(("\(peripheral.name)", "\(RSSI)" , "\(peripheral.identifier.UUIDString)"), atIndex: 0)
             farPeripheralArray.append("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
 
+            // sort array elment by size of RSSI
             cleanAndSortedFarArray = sorted(farPeripheralArray,{
                 (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
                 return str1.1.toInt() > str2.1.toInt()
@@ -192,8 +209,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
 
         
-        } else {
-    //        nearPeripheralArray.insert(("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)"), atIndex: 0)
+        } else if RSSI.intValue > -79 && RSSI.intValue < 1  {
+          
             nearPeripheralArray.append("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
             cleanAndSortedNearArray = sorted(nearPeripheralArray,{
                 (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
@@ -201,6 +218,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             })
             ////  from http://www.andrewcbancroft.com/2014/08/16/sort-yourself-out-sorting-an-array-in-swift/
 
+        } else {
+            
+            miscPeripheralArray.append("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
+            cleanAndSortedMiscArray = sorted(miscPeripheralArray,{
+                (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
+                return str1.1.toInt() > str2.1.toInt()
+            })
+            
         }
         
         tableView.reloadData()
@@ -278,9 +303,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         nearPeripheralArray.removeAll(keepCapacity: true)
         farPeripheralArray.removeAll(keepCapacity: false)
+        miscPeripheralArray.removeAll(keepCapacity: false)
+        
         
         cleanAndSortedNearArray.removeAll(keepCapacity: true)
         cleanAndSortedFarArray.removeAll(keepCapacity: false)
+        cleanAndSortedMiscArray.removeAll(keepCapacity: false)
         
     }
 
