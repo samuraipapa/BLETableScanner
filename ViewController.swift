@@ -23,6 +23,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let myCentralManager = CBCentralManager()
     var peripheralArray = [CBPeripheral]() // create now empty array.
 
+    var fullPeripheralArray = [("UUIDString","RSSI","Name")]
+    
+    
     var myPeripheralArray = ["Peripherial 1","Peripherial 2", "Peripherial 3"]
     
     var nearPeripheralArray = [("UUIDString","RSSI","Name")]
@@ -191,15 +194,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             // for each element in the array. check the uuidstring. if so remove that old array entry. place this one in relation to it's rssi
             
-            for element in farPeripheralArray {
-                if (element.0 == peripheral.identifier.UUIDString){
-                   //
+            for (myIndex, checkUUID) in enumerate(farPeripheralArray){
+            
+                if (checkUUID.0 == peripheral.identifier.UUIDString) {
+                    let myTuple = ("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
+                    farPeripheralArray.insert(myTuple, atIndex: myIndex)
+                  }
                 }
             }
-            
-            
+        
+        
+        if ( RSSI.intValue < -80 ){
             farPeripheralArray.append("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
-
             // sort array elment by size of RSSI
             cleanAndSortedFarArray = sorted(farPeripheralArray,{
                 (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
@@ -209,7 +215,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
 
         
-        } else if RSSI.intValue > -79 && RSSI.intValue < 1  {
+              } else if (RSSI.intValue > -79 && RSSI.intValue < 1)  {
           
             nearPeripheralArray.append("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
             cleanAndSortedNearArray = sorted(nearPeripheralArray,{
@@ -230,6 +236,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         tableView.reloadData()
         
+    
     }
     
     
@@ -270,11 +277,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if sender.on{
             
             myCentralManager.scanForPeripheralsWithServices(nil, options: nil )   // call to scan for services
-            printToMyTextView("Scanning for Peripherals")
+            updateStatusLabel("Scanning for Peripherals")
             
         }else{
             myCentralManager.stopScan()   // stop scanning to save power
-            printToMyTextView("Stop Scanning")
+            updateStatusLabel("Stop Scanning")
             
             if (peripheralArray.count > 0 ) {
                 myCentralManager.cancelPeripheralConnection(peripheralArray[0])
