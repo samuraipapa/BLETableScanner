@@ -14,6 +14,7 @@
 		6C64E6E01ACF041B00CF0875 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C64E6DE1ACF041B00CF0875 /* LaunchScreen.xib */; };
 		6C64E6EC1ACF041B00CF0875 /* BLETableScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C64E6EB1ACF041B00CF0875 /* BLETableScannerTests.swift */; };
 		6C64E6FC1ACF09F700CF0875 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C64E6FB1ACF09F700CF0875 /* ViewController.swift */; };
+		6CCF2E4D1AD42CE3000ED981 /* screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CCF2E4C1AD42CE3000ED981 /* screen.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		6C64E6EA1ACF041B00CF0875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C64E6EB1ACF041B00CF0875 /* BLETableScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLETableScannerTests.swift; sourceTree = "<group>"; };
 		6C64E6FB1ACF09F700CF0875 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
+		6CCF2E4C1AD42CE3000ED981 /* screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screen.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 		6C64E6D31ACF041B00CF0875 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6CCF2E4C1AD42CE3000ED981 /* screen.png */,
 				6C64E6D41ACF041B00CF0875 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -196,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C64E6DB1ACF041B00CF0875 /* Main.storyboard in Resources */,
+				6CCF2E4D1AD42CE3000ED981 /* screen.png in Resources */,
 				6C64E6E01ACF041B00CF0875 /* LaunchScreen.xib in Resources */,
 				6C64E6DD1ACF041B00CF0875 /* Images.xcassets in Resources */,
 			);
