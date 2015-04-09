@@ -88,22 +88,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("near", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = "\(cleanAndSortedNearArray[indexPath.row].1)" + "  \(cleanAndSortedNearArray[indexPath.row].2)"
-            cell.detailTextLabel?.text = cleanAndSortedNearArray[indexPath.row].0
+            cell.textLabel?.text = "\(cleanAndSortedNearArray[indexPath.row].1)" + "  \(cleanAndSortedNearArray[indexPath.row].0)"
+            cell.detailTextLabel?.text = cleanAndSortedNearArray[indexPath.row].2
             
             return cell
             
         }
         else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("far", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = "\(cleanAndSortedFarArray[indexPath.row].1)" + "  \(cleanAndSortedFarArray[indexPath.row].2)"
-            cell.detailTextLabel?.text = cleanAndSortedFarArray[indexPath.row].0
+            cell.textLabel?.text = "\(cleanAndSortedFarArray[indexPath.row].1)" + "  \(cleanAndSortedFarArray[indexPath.row].0)"
+            cell.detailTextLabel?.text = cleanAndSortedFarArray[indexPath.row].2
             return cell
             
         }    else  {
             let cell = tableView.dequeueReusableCellWithIdentifier("far", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = "\(cleanAndSortedMiscArray[indexPath.row].1)" + "  \(cleanAndSortedMiscArray[indexPath.row].2)"
-            cell.detailTextLabel?.text = cleanAndSortedMiscArray[indexPath.row].0
+            cell.textLabel?.text = "\(cleanAndSortedMiscArray[indexPath.row].1)" + "  \(cleanAndSortedMiscArray[indexPath.row].0)"
+            cell.detailTextLabel?.text = cleanAndSortedMiscArray[indexPath.row].2
             return cell
             
         }
@@ -181,11 +181,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!, RSSI: NSNumber!) {
      
-        println("Discovered an Peripheral")
-        println("Name: \(peripheral.identifier.UUIDString)")
-        println("UUID: \(peripheral)")
+        updateStatusLabel("Discovered: \(peripheral.name)")
+        println("Discovered Name: \(peripheral.name)")
+        println("UUIDString: \(peripheral.identifier.UUIDString)")
+        println("peripheral: \(peripheral)")
 
-        println("Services: \(advertisementData)")
+        println("AdvertisementData: \(advertisementData)")
         println("RSSI: \(RSSI) \r ")
         
 
