@@ -30,6 +30,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var labelStatus: UILabel!
     
+    @IBOutlet weak var scanSwitchProp: UISwitch!
+    
     //  Table Cell That is formatted for info  (Future Implimenation)
     var formatedForCell = [("Title","SubTitle")]
     
@@ -52,24 +54,90 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
+    //  Mark UI Stuff
+    
+    //Refresh Button
+    @IBAction func refreshed(sender: UIButton) {
+        
+        myCentralManager.stopScan()   // stop scanning to save power
+        myPeripheralDictionary.removeAll(keepCapacity: false)
+
+        tableView.reloadData()
+        
+        if scanSwitchProp.on{
+            
+            
+            myCentralManager.scanForPeripheralsWithServices(nil, options: nil )   // call to scan for services
+            updateStatusLabel("Refreshing. ")
+            
+        }else{
+            myCentralManager.stopScan()   // stop scanning to save power
+            updateStatusLabel("Stop Scanning")
+            
+            if (peripheralArray.count > 0 ) {
+                myCentralManager.cancelPeripheralConnection(peripheralArray[0])
+            }
+        }
+
+
+        
+    
+    }
+    
+    
+    
+    
+    @IBAction func scanSwitch(sender: UISwitch) {
+        if sender.on{
+            
+            myCentralManager.scanForPeripheralsWithServices(nil, options: nil )   // call to scan for services
+            updateStatusLabel("Scanning for Peripherals")
+            
+        }else{
+            myPeripheralDictionary.removeAll(keepCapacity: false)
+            myCentralManager.stopScan()   // stop scanning to save power
+            updateStatusLabel("Stop Scanning")
+            
+            if (peripheralArray.count > 0 ) {
+                myCentralManager.cancelPeripheralConnection(peripheralArray[0])
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    func updateStatusLabel(passedString: String){
+        labelStatus.text = passedString 
+    }
+    
+    
+    
+    
+    func refreshArrays(){
+        
+        fullPeripheralArray.removeAll(keepCapacity: true)
+        cleanAndSortedArray.removeAll(keepCapacity: true)
+        
+    }
+    
+
+    
+    
+    
     // MARK: - Table view data source
     
-     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         return 1
         
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-//        if section == 0 {
+
             return cleanAndSortedArray.count
-//        } else if section == 1 {
-//            return farPeripheralArray.count
-//        } else {
-//            return miscPeripheralArray.count
-//        }
+
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -99,20 +167,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        //
+        //  future build out
         
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // 
-        println("did selectRowAtIndex")
+        println("selected: \(indexPath.row)")
+        updateStatusLabel("selected: \(cleanAndSortedArray[indexPath.row].3)")
+        
+        
         
     }
 
 
     
     // Mark   CBCentralManager Methods
-    
     
     // Put CentralManager in the main queue
     required init(coder aDecoder: NSCoder) {
@@ -121,7 +191,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    
+    //Did Update State
     func centralManagerDidUpdateState(central: CBCentralManager!) {
         
         println("centralManagerDidUpdateState")
@@ -161,25 +231,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
         }
         }
-
     
+    // Did Discover Peripherals
     func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!, RSSI: NSNumber!) {
+        
+        
         
         // Refresh Entry or Make an New Entry into Dictionary
         let myUUIDString = peripheral.identifier.UUIDString
         let myRSSIString = String(RSSI.intValue)
         var myNameString = peripheral.name
         var myAdvertisedServices = peripheral.services
-       
+        
+        
+        var keyNameString = "\(advertisementData[CBAdvertisementDataLocalNameKey]?.name)"
+        
         var myArray = advertisementData
         var advertString = "\(advertisementData)"
-        
-        
-        updateStatusLabel("\r")
-        updateStatusLabel("UUID: " + myUUIDString)
-        updateStatusLabel("RSSI: " + myRSSIString)
-        updateStatusLabel("Name:  \(myNameString)")
-        updateStatusLabel("advertString: " + advertString)
+
         
         
         if RSSI.intValue < 0 {
@@ -201,6 +270,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             (str1: (String,String,String,String) , str2: (String,String,String,String) ) -> Bool in
             return str1.1.toInt() > str2.1.toInt()
         })
+            
+            
         
         }
         
@@ -208,24 +279,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
      
-        
-        
-        
     
     
-    
-    
-    
-    //  Mark UI Stuff
-
-        //REFRESH
-    @IBAction func refreshed(sender: UIButton) {
-        
-        refreshArrays()
-        tableView.reloadData()
-    }
-    
-    
+    // Notes
+    func attribution(){
     
 //    
 //     func sortArray(arrayToSort: Array ) -> Array {
@@ -241,45 +298,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        
 //        return sortedArray
 //        
-//    }
-    
-
-
-    
-    
-    @IBAction func scanSwitch(sender: UISwitch) {
-        if sender.on{
-            
-            myCentralManager.scanForPeripheralsWithServices(nil, options: nil )   // call to scan for services
-            updateStatusLabel("Scanning for Peripherals")
-            
-        }else{
-            myCentralManager.stopScan()   // stop scanning to save power
-            updateStatusLabel("Stop Scanning")
-            
-            if (peripheralArray.count > 0 ) {
-                myCentralManager.cancelPeripheralConnection(peripheralArray[0])
-            }
-        }
     }
     
-    
-    
-    
-    
-    func updateStatusLabel(passedString: String){
-        labelStatus.text = passedString + "\r" + labelStatus.text!
-    }
-    
-    
-    
-
-    func refreshArrays(){
-        
-        fullPeripheralArray.removeAll(keepCapacity: true)
-        cleanAndSortedArray.removeAll(keepCapacity: true)
-   
-    }
 
     
 
