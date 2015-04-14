@@ -16,34 +16,25 @@ import CoreBluetooth
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CBCentralManagerDelegate, CBPeripheralDelegate {
 
     
-
-    
-    
     // BLE Stuff
     let myCentralManager = CBCentralManager()
     var peripheralArray = [CBPeripheral]() // create now empty array.
-
-    var fullPeripheralArray = [("UUIDString","RSSI","Name")]
     
-    
-    var myPeripheralArray = ["Peripherial 1","Peripherial 2", "Peripherial 3"]
-    
-    var nearPeripheralArray = [("UUIDString","RSSI","Name")]
-    var farPeripheralArray = [("UUIDString","RSSI","Name")]
-    var miscPeripheralArray = [("UUIDString","RSSI","Name")]
-
-    
-    var cleanAndSortedNearArray = [("UUIDString","RSSI","Name")]
-    var cleanAndSortedFarArray = [("UUIDString","RSSI","Name")]
-    var cleanAndSortedMiscArray = [("UUIDString","RSSI","Name")]
-    
-    var formatedForCell = [("Title","SubTitle")]
+    // BLE Peripheral Arrays
+    var fullPeripheralArray = [("UUIDString","RSSI", "Name", "full Services1")]
+    var cleanAndSortedArray = [("UUIDString","RSSI", "Name","clean Services1")]
+    var myPeripheralDictionary:[String:(String, String, String, String)] = ["UUIDString":("UUIDString","RSSI", "Name","myPeripheralDictionary Services1")]
     
 
     // UI Stuff
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var labelStatus: UILabel!
- 
+    
+    @IBOutlet weak var scanSwitchProp: UISwitch!
+    
+    //  Table Cell That is formatted for info  (Future Implimenation)
+    var formatedForCell = [("Title","SubTitle")]
+    
     
     
     
@@ -63,50 +54,101 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
+    //  Mark UI Stuff
+    
+    //Refresh Button
+    @IBAction func refreshed(sender: UIButton) {
+        
+        myCentralManager.stopScan()   // stop scanning to save power
+        myPeripheralDictionary.removeAll(keepCapacity: false)
+
+        tableView.reloadData()
+        
+        if scanSwitchProp.on{
+            
+            
+            myCentralManager.scanForPeripheralsWithServices(nil, options: nil )   // call to scan for services
+            updateStatusLabel("Refreshing. ")
+            
+        }else{
+            myCentralManager.stopScan()   // stop scanning to save power
+            updateStatusLabel("Stop Scanning")
+            
+            if (peripheralArray.count > 0 ) {
+                myCentralManager.cancelPeripheralConnection(peripheralArray[0])
+            }
+        }
+
+
+        
+    
+    }
+    
+    
+    
+    
+    @IBAction func scanSwitch(sender: UISwitch) {
+        if sender.on{
+            
+            myCentralManager.scanForPeripheralsWithServices(nil, options: nil )   // call to scan for services
+            updateStatusLabel("Scanning for Peripherals")
+            
+        }else{
+            myPeripheralDictionary.removeAll(keepCapacity: false)
+            myCentralManager.stopScan()   // stop scanning to save power
+            updateStatusLabel("Stop Scanning")
+            
+            if (peripheralArray.count > 0 ) {
+                myCentralManager.cancelPeripheralConnection(peripheralArray[0])
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    func updateStatusLabel(passedString: String){
+        labelStatus.text = passedString 
+    }
+    
+    
+    
+    
+    func refreshArrays(){
+        
+        fullPeripheralArray.removeAll(keepCapacity: true)
+        cleanAndSortedArray.removeAll(keepCapacity: true)
+        
+    }
+    
+
+    
+    
+    
     // MARK: - Table view data source
     
-     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return 3
+        return 1
         
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        if section == 0 {
-            return nearPeripheralArray.count
-        } else if section == 1 {
-            return farPeripheralArray.count
-        } else {
-            return miscPeripheralArray.count
-        }
+
+            return cleanAndSortedArray.count
+
     }
-    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("near", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = "\(cleanAndSortedNearArray[indexPath.row].1)" + "  \(cleanAndSortedNearArray[indexPath.row].2)"
-            cell.detailTextLabel?.text = cleanAndSortedNearArray[indexPath.row].0
+            cell.textLabel?.text = "\(cleanAndSortedArray[indexPath.row].1)" + "  \(cleanAndSortedArray[indexPath.row].2)"
+            cell.detailTextLabel?.text = cleanAndSortedArray[indexPath.row].0
             
             return cell
             
-        }
-        else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("far", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = "\(cleanAndSortedFarArray[indexPath.row].1)" + "  \(cleanAndSortedFarArray[indexPath.row].2)"
-            cell.detailTextLabel?.text = cleanAndSortedFarArray[indexPath.row].0
-            return cell
-            
-        }    else  {
-            let cell = tableView.dequeueReusableCellWithIdentifier("far", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = "\(cleanAndSortedMiscArray[indexPath.row].1)" + "  \(cleanAndSortedMiscArray[indexPath.row].2)"
-            cell.detailTextLabel?.text = cleanAndSortedMiscArray[indexPath.row].0
-            return cell
-            
-        }
+
 
 
 
@@ -116,7 +158,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0{
-            return "Close By"
+            return "Proximity / Name  "
         }else if section == 1{
             return "Far Away"
         } else {
@@ -124,11 +166,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        //  future build out
+        
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // 
+        println("selected: \(indexPath.row)")
+        updateStatusLabel("selected: \(cleanAndSortedArray[indexPath.row].3)")
+        
+        
+        
+    }
 
 
     
     // Mark   CBCentralManager Methods
-    
     
     // Put CentralManager in the main queue
     required init(coder aDecoder: NSCoder) {
@@ -137,7 +191,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    
+    //Did Update State
     func centralManagerDidUpdateState(central: CBCentralManager!) {
         
         println("centralManagerDidUpdateState")
@@ -177,81 +231,58 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
         }
         }
-
     
+    // Did Discover Peripherals
     func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!, RSSI: NSNumber!) {
-     
-        println("Discovered an Peripheral")
-        println("Name: \(peripheral.identifier.UUIDString)")
-        println("UUID: \(peripheral)")
-
-        println("Services: \(advertisementData)")
-        println("RSSI: \(RSSI) \r ")
-        
-
-        
-        if  RSSI.intValue < -80 {
-            
-            // for each element in the array. check the uuidstring. if so remove that old array entry. place this one in relation to it's rssi
-            
-            for (myIndex, checkUUID) in enumerate(farPeripheralArray){
-            
-                if (checkUUID.0 == peripheral.identifier.UUIDString) {
-                    let myTuple = ("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
-                    farPeripheralArray.insert(myTuple, atIndex: myIndex)
-                  }
-                }
-            }
         
         
-        if ( RSSI.intValue < -80 ){
-            farPeripheralArray.append("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
-            // sort array elment by size of RSSI
-            cleanAndSortedFarArray = sorted(farPeripheralArray,{
-                (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
-                return str1.1.toInt() > str2.1.toInt()
-            })
-
-            
+        
+        // Refresh Entry or Make an New Entry into Dictionary
+        let myUUIDString = peripheral.identifier.UUIDString
+        let myRSSIString = String(RSSI.intValue)
+        var myNameString = peripheral.name
+        var myAdvertisedServices = peripheral.services
+        
+        
+        var keyNameString = "\(advertisementData[CBAdvertisementDataLocalNameKey]?.name)"
+        
+        var myArray = advertisementData
+        var advertString = "\(advertisementData)"
 
         
-              } else if (RSSI.intValue > -79 && RSSI.intValue < 1)  {
-          
-            nearPeripheralArray.append("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
-            cleanAndSortedNearArray = sorted(nearPeripheralArray,{
-                (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
-                return str1.1.toInt() > str2.1.toInt()
-            })
-            ////  from http://www.andrewcbancroft.com/2014/08/16/sort-yourself-out-sorting-an-array-in-swift/
-
-        } else {
-            
-            miscPeripheralArray.append("\(peripheral.name)", "\(RSSI)", "\(peripheral.identifier.UUIDString)")
-            cleanAndSortedMiscArray = sorted(miscPeripheralArray,{
-                (str1: (String,String,String) , str2: (String,String,String) ) -> Bool in
-                return str1.1.toInt() > str2.1.toInt()
-            })
-            
+        
+        if RSSI.intValue < 0 {
+        
+        let myTuple = (myUUIDString, myRSSIString, "\(myNameString)", advertString )
+        myPeripheralDictionary[myTuple.0] = myTuple
+        
+        // Clean Array
+        fullPeripheralArray.removeAll(keepCapacity: false)
+        
+        // Tranfer Dictionary to Array
+        for eachItem in myPeripheralDictionary{
+            fullPeripheralArray.append(eachItem.1)
         }
         
-        tableView.reloadData()
+        // Sort Array by RSSI
+        //from http://www.andrewcbancroft.com/2014/08/16/sort-yourself-out-sorting-an-array-in-swift/
+        cleanAndSortedArray = sorted(fullPeripheralArray,{
+            (str1: (String,String,String,String) , str2: (String,String,String,String) ) -> Bool in
+            return str1.1.toInt() > str2.1.toInt()
+        })
+            
+            
         
-    
-    }
-    
-    
-    
-    
-    //  Mark UI Stuff
-
-        //REFRESH
-    @IBAction func refreshed(sender: UIButton) {
+        }
         
-        refreshArrays()
-        tableView.reloadData()
+     tableView.reloadData()
+        
     }
+     
     
     
+    // Notes
+    func attribution(){
     
 //    
 //     func sortArray(arrayToSort: Array ) -> Array {
@@ -267,57 +298,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        
 //        return sortedArray
 //        
-//    }
-    
-
-
-    
-    
-    @IBAction func scanSwitch(sender: UISwitch) {
-        if sender.on{
-            
-            myCentralManager.scanForPeripheralsWithServices(nil, options: nil )   // call to scan for services
-            updateStatusLabel("Scanning for Peripherals")
-            
-        }else{
-            myCentralManager.stopScan()   // stop scanning to save power
-            updateStatusLabel("Stop Scanning")
-            
-            if (peripheralArray.count > 0 ) {
-                myCentralManager.cancelPeripheralConnection(peripheralArray[0])
-            }
-        }
     }
     
-    
-    
-    func printToMyTextView(passedString: String){
-        labelStatus.text = passedString
-    }
-    
-    
-    func updateStatusLabel(passedString: String){
-        labelStatus.text = passedString
-    }
-    
-    
-    func updateStatusTitleAndSubTitle(passedString: String){
-        formatedForCell.append("added "," Added ")
-    }
-    
-
-    func refreshArrays(){
-        
-        nearPeripheralArray.removeAll(keepCapacity: true)
-        farPeripheralArray.removeAll(keepCapacity: false)
-        miscPeripheralArray.removeAll(keepCapacity: false)
-        
-        
-        cleanAndSortedNearArray.removeAll(keepCapacity: true)
-        cleanAndSortedFarArray.removeAll(keepCapacity: false)
-        cleanAndSortedMiscArray.removeAll(keepCapacity: false)
-        
-    }
 
     
 
