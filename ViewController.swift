@@ -240,18 +240,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Refresh Entry or Make an New Entry into Dictionary
         let myUUIDString = peripheral.identifier.UUIDString
         let myRSSIString = String(RSSI.intValue)
-        var myNameString = peripheral.name
+        var myNameString: String!
+        
+        if (advertisementData[CBAdvertisementDataLocalNameKey] != nil){
+             myNameString = advertisementData[CBAdvertisementDataLocalNameKey] as String
+            
+        } else{
+             myNameString = peripheral.name
+            }
+        
+        
         var myAdvertisedServices = peripheral.services
-        
-        
-        var keyNameString = "\(advertisementData[CBAdvertisementDataLocalNameKey]?.name)"
         
         var myArray = advertisementData
         var advertString = "\(advertisementData)"
 
         
         
-        if RSSI.intValue < 0 {
+        if RSSI.intValue < 0 && myNameString != nil {
         
         let myTuple = (myUUIDString, myRSSIString, "\(myNameString)", advertString )
         myPeripheralDictionary[myTuple.0] = myTuple
