@@ -65,8 +65,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func refreshed(sender: UIButton) {
         
         myCentralManager.stopScan()   // stop scanning to save power
-        myPeripheralDictionary.removeAll(keepCapacity: false)
-
+        
+        refreshArrays()
+        
         tableView.reloadData()
         
         if scanSwitchProp.on{
@@ -161,8 +162,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (indexPath.section == 0) {
             // Configure the cell...
             let cell = tableView.dequeueReusableCellWithIdentifier("chatCell", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = "\(cleanAndSortedChatArray[indexPath.row].1)" + "  \(cleanAndSortedChatArray[indexPath.row].2)"
-            cell.detailTextLabel?.text = cleanAndSortedChatArray[indexPath.row].3
+            cell.textLabel?.text = "\(cleanAndSortedChatArray[indexPath.row].2)"
+            cell.detailTextLabel?.text = cleanAndSortedChatArray[indexPath.row].1
             
             return cell
 
@@ -181,6 +182,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if section == 0{
             return "Chat Activity"
         }else if section == 1{
+            tableView.sectionIndexColor = UIColor.darkGrayColor()
             return "BackGround Devices"
         } else {
             return "Misc"
@@ -268,7 +270,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //myMessageString = advertisementData[CBAdvertisementDataManufacturerDataKey] as String
 
         
-        let prefixString = "GC"
+        let prefixString = "Ghost"
      //   let localNameKey = advertisementData[CBAdvertisementDataLocalNameKey]
         
         if let localNameKey: AnyObject = advertisementData[CBAdvertisementDataLocalNameKey]  {
@@ -276,8 +278,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             myNameString = localNameKey as String
             var myTuple = (myUUIDString, myRSSIString, "\(myNameString)", "\(myMessageString)" )
             
-            if myNameString!.hasPrefix("GC:"){
-                myTuple.2 = "Chat: " + myTuple.2
+            if myNameString!.hasPrefix(prefixString) || myNameString!.hasPrefix("GC") {
+                myTuple.2 = myTuple.2
                 chatDictionary[myTuple.0] = myTuple
                 
                 // Clean Array
@@ -327,7 +329,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             myNameString = peripheral.name
 
-            let myTuple = (myUUIDString, myRSSIString, "Backgroud: \(myNameString)", "\(myMessageString)" )
+            let myTuple = (myUUIDString, myRSSIString, "Background: \(myNameString)", "\(myMessageString)" )
             myPeripheralDictionary[myTuple.0] = myTuple
             
             // Clean Array
