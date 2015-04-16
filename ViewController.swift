@@ -20,10 +20,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let myCentralManager = CBCentralManager()
     var peripheralArray = [CBPeripheral]() // create now empty array.
     
+    // Chat Array
+    var fullChatArray = [("UUIDString","RSSI", "Name", "full Services1")]
+    var chatDictionary:[String:(String, String, String, String)] = ["UUIDString":("UUIDString","RSSI", "Name","myPeripheralDictionary Services1")]
+    var cleanAndSortedChatArray = [("UUIDString","RSSI", "Name","clean Services1")]
+    
     // BLE Peripheral Arrays
     var fullPeripheralArray = [("UUIDString","RSSI", "Name", "full Services1")]
-    var cleanAndSortedArray = [("UUIDString","RSSI", "Name","clean Services1")]
     var myPeripheralDictionary:[String:(String, String, String, String)] = ["UUIDString":("UUIDString","RSSI", "Name","myPeripheralDictionary Services1")]
+    var cleanAndSortedArray = [("UUIDString","RSSI", "Name","clean Services1")]
     
 
     // UI Stuff
@@ -130,7 +135,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return 1
+        return 2
         
     }
     
@@ -141,26 +146,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+       
+
         
-            let cell = tableView.dequeueReusableCellWithIdentifier("near", forIndexPath: indexPath) as UITableViewCell
+        if (indexPath.section == 0) {
+            // Configure the cell...
+            let cell = tableView.dequeueReusableCellWithIdentifier("chatCell", forIndexPath: indexPath) as UITableViewCell
             cell.textLabel?.text = "\(cleanAndSortedArray[indexPath.row].1)" + "  \(cleanAndSortedArray[indexPath.row].2)"
-            cell.detailTextLabel?.text = cleanAndSortedArray[indexPath.row].0
+            cell.detailTextLabel?.text = cleanAndSortedArray[indexPath.row].3
             
             return cell
+
+        } else {
             
-
-
-
-
         // Configure the cell...
+        let cell = tableView.dequeueReusableCellWithIdentifier("backgroundCell", forIndexPath: indexPath) as UITableViewCell
+        cell.textLabel?.text = "\(cleanAndSortedArray[indexPath.row].1)" + "  \(cleanAndSortedArray[indexPath.row].2)"
+        cell.detailTextLabel?.text = cleanAndSortedArray[indexPath.row].3
         
+            return cell}
+
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0{
-            return "Proximity / Name  "
+            return "Chat Activity"
         }else if section == 1{
-            return "Far Away"
+            return "BackGround Devices"
         } else {
             return "Misc"
         }
@@ -241,6 +253,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let myUUIDString = peripheral.identifier.UUIDString
         let myRSSIString = String(RSSI.intValue)
         var myNameString: String!
+        var myMessageString: String!
         
         if (advertisementData[CBAdvertisementDataLocalNameKey] != nil){
              myNameString = advertisementData[CBAdvertisementDataLocalNameKey] as String
@@ -249,17 +262,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
              myNameString = peripheral.name
             }
         
+        if (advertisementData[CBAdvertisementDataManufacturerDataKey]  != nil){
+
+                myMessageString = advertisementData[CBAdvertisementDataManufacturerDataKey] as String
+        } else{
+            myMessageString = "No Manufactor Data"
+        }
         
-        var myAdvertisedServices = peripheral.services
         
-        var myArray = advertisementData
-        var advertString = "\(advertisementData)"
+   //     var myAdvertisedServices = peripheral.services
+   //     var myArray = advertisementData
+   //     var advertString = "\(advertisementData)"
 
         
         
         if RSSI.intValue < 0 && myNameString != nil {
         
-        let myTuple = (myUUIDString, myRSSIString, "\(myNameString)", advertString )
+        let myTuple = (myUUIDString, myRSSIString, "\(myNameString)", "\(myMessageString)" )
         myPeripheralDictionary[myTuple.0] = myTuple
         
         // Clean Array
