@@ -21,9 +21,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var peripheralArray = [CBPeripheral]() // create now empty array.
     
     // Chat Array
-    var fullChatArray = [("UUIDString","RSSI", "Name", "full Services1")]
+    var fullChatArray = [("","", "", "")]
     var chatDictionary:[String:(String, String, String, String)] = ["UUIDString":("UUIDString","RSSI", "Name","myPeripheralDictionary Services1")]
-    var cleanAndSortedChatArray = [("UUIDString","RSSI", "Name","clean Services1")]
+    var cleanAndSortedChatArray = [("","", "","")]
     
     // BLE Peripheral Arrays
     var fullPeripheralArray = [("UUIDString","RSSI", "Name", "full Services1")]
@@ -122,8 +122,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func refreshArrays(){
         
-        fullPeripheralArray.removeAll(keepCapacity: true)
-        cleanAndSortedArray.removeAll(keepCapacity: true)
+        fullPeripheralArray.removeAll(keepCapacity: false)
+        cleanAndSortedArray.removeAll(keepCapacity: false)
+        myPeripheralDictionary.removeAll(keepCapacity: false)
+        
+        cleanAndSortedChatArray.removeAll(keepCapacity: false)
+        fullChatArray.removeAll(keepCapacity: false)
+        chatDictionary.removeAll(keepCapacity: false)
         
     }
     
@@ -141,7 +146,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
+        if section == 0 {
+            return cleanAndSortedChatArray.count
+        }else{
             return cleanAndSortedArray.count
+        }
 
     }
     
@@ -152,8 +161,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (indexPath.section == 0) {
             // Configure the cell...
             let cell = tableView.dequeueReusableCellWithIdentifier("chatCell", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = "\(cleanAndSortedArray[indexPath.row].1)" + "  \(cleanAndSortedArray[indexPath.row].2)"
-            cell.detailTextLabel?.text = cleanAndSortedArray[indexPath.row].3
+            cell.textLabel?.text = "\(cleanAndSortedChatArray[indexPath.row].1)" + "  \(cleanAndSortedChatArray[indexPath.row].2)"
+            cell.detailTextLabel?.text = cleanAndSortedChatArray[indexPath.row].3
             
             return cell
 
@@ -255,19 +264,102 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var myNameString: String!
         var myMessageString: String!
         
-        if (advertisementData[CBAdvertisementDataLocalNameKey] != nil){
-             myNameString = advertisementData[CBAdvertisementDataLocalNameKey] as String
-            
-        } else{
-             myNameString = peripheral.name
-            }
-        
-        if (advertisementData[CBAdvertisementDataManufacturerDataKey]  != nil){
 
-                myMessageString = advertisementData[CBAdvertisementDataManufacturerDataKey] as String
-        } else{
-            myMessageString = "No Manufactor Data"
+        //myMessageString = advertisementData[CBAdvertisementDataManufacturerDataKey] as String
+
+        
+        let prefixString = "GC"
+     //   let localNameKey = advertisementData[CBAdvertisementDataLocalNameKey]
+        
+        if let localNameKey: AnyObject = advertisementData[CBAdvertisementDataLocalNameKey]  {
+  
+            myNameString = localNameKey as String
+            var myTuple = (myUUIDString, myRSSIString, "\(myNameString)", "\(myMessageString)" )
+            
+            if myNameString!.hasPrefix("GC:"){
+                myTuple.2 = "Chat: " + myTuple.2
+                chatDictionary[myTuple.0] = myTuple
+                
+                // Clean Array
+                fullChatArray.removeAll(keepCapacity: false)
+                
+                // Tranfer Dictionary to Array
+                for eachItem in chatDictionary{
+                    fullChatArray.append(eachItem.1)
+                }
+                
+                // Sort Array by RSSI
+                //from http://www.andrewcbancroft.com/2014/08/16/sort-yourself-out-sorting-an-array-in-swift/
+                cleanAndSortedChatArray = sorted(fullChatArray,{
+                    (str1: (String,String,String,String) , str2: (String,String,String,String) ) -> Bool in
+                    return str1.1.toInt() > str2.1.toInt()
+                })
+                
+                return  
+
+            } else {
+                
+//                
+//                myTuple.2 = "localNameKey: " + myTuple.2
+//                chatDictionary[myTuple.0] = myTuple
+//                
+//                // Clean Array
+//                fullChatArray.removeAll(keepCapacity: false)
+//                
+//                // Tranfer Dictionary to Array
+//                for eachItem in chatDictionary{
+//                    fullChatArray.append(eachItem.1)
+//                }
+//                
+//                // Sort Array by RSSI
+//                //from http://www.andrewcbancroft.com/2014/08/16/sort-yourself-out-sorting-an-array-in-swift/
+//                cleanAndSortedChatArray = sorted(fullChatArray,{
+//                    (str1: (String,String,String,String) , str2: (String,String,String,String) ) -> Bool in
+//                    return str1.1.toInt() > str2.1.toInt()
+//                })
+                
+                
+            
+            }
         }
+        
+            
+            
+            myNameString = peripheral.name
+
+            let myTuple = (myUUIDString, myRSSIString, "Backgroud: \(myNameString)", "\(myMessageString)" )
+            myPeripheralDictionary[myTuple.0] = myTuple
+            
+            // Clean Array
+            fullPeripheralArray.removeAll(keepCapacity: false)
+            
+            // Tranfer Dictionary to Array
+            for eachItem in myPeripheralDictionary{
+                fullPeripheralArray.append(eachItem.1)
+            }
+            
+            // Sort Array by RSSI
+            //from http://www.andrewcbancroft.com/2014/08/16/sort-yourself-out-sorting-an-array-in-swift/
+            cleanAndSortedArray = sorted(fullPeripheralArray,{
+                (str1: (String,String,String,String) , str2: (String,String,String,String) ) -> Bool in
+                return str1.1.toInt() > str2.1.toInt()
+            })
+     
+        tableView.reloadData()
+        
+    }
+            
+  //          }
+        
+//        if (advertisementData[CBAdvertisementDataManufacturerDataKey]  != nil){
+//
+//                myMessageString = advertisementData[CBAdvertisementDataManufacturerDataKey] as String
+//
+//        } else{
+//            myMessageString = "No Manufactor Data"
+//        }
+        
+        
         
         
    //     var myAdvertisedServices = peripheral.services
@@ -276,35 +368,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         
         
-        if RSSI.intValue < 0 && myNameString != nil {
-        
-        let myTuple = (myUUIDString, myRSSIString, "\(myNameString)", "\(myMessageString)" )
-        myPeripheralDictionary[myTuple.0] = myTuple
-        
-        // Clean Array
-        fullPeripheralArray.removeAll(keepCapacity: false)
-        
-        // Tranfer Dictionary to Array
-        for eachItem in myPeripheralDictionary{
-            fullPeripheralArray.append(eachItem.1)
-        }
-        
-        // Sort Array by RSSI
-        //from http://www.andrewcbancroft.com/2014/08/16/sort-yourself-out-sorting-an-array-in-swift/
-        cleanAndSortedArray = sorted(fullPeripheralArray,{
-            (str1: (String,String,String,String) , str2: (String,String,String,String) ) -> Bool in
-            return str1.1.toInt() > str2.1.toInt()
-        })
-            
-            
-        
-        }
-        
-     tableView.reloadData()
-        
-    }
-     
+//        if RSSI.intValue < 0 && myNameString != nil {
+//        
+//    //
+//        
+//        }
     
+
+
+
     
     // Notes
     func attribution(){
