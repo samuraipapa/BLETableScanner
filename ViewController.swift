@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     
     // BLE Stuff
-    let myCentralManager = CBCentralManager()
+    var myCentralManager = CBCentralManager()
     var peripheralArray = [CBPeripheral]() // create now empty array.
     
     // BLE Peripheral Arrays
