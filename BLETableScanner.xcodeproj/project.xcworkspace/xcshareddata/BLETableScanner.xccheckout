@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>575545A0-5F9A-4473-97A7-C80125718AF9</string>
 	<key>IDESourceControlProjectName</key>
-	<string>BLETableScanner</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>5A16C33A67318340720447B221C2447DA3BF2143</key>
 		<string>https://github.com/samuraipapa/BLETableScanner.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BLETableScanner.xcodeproj</string>
+	<string>BLETableScanner.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>5A16C33A67318340720447B221C2447DA3BF2143</key>

@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     
     // BLE Stuff
-    let myCentralManager = CBCentralManager()
+    var myCentralManager = CBCentralManager()
     var peripheralArray = [CBPeripheral]() // create now empty array.
     
     // Chat Array
@@ -161,7 +161,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if (indexPath.section == 0) {
             // Configure the cell...
-            let cell = tableView.dequeueReusableCellWithIdentifier("chatCell", forIndexPath: indexPath) as UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("chatCell", forIndexPath: indexPath) as! UITableViewCell
             cell.textLabel?.text = "\(cleanAndSortedChatArray[indexPath.row].2)"
             cell.detailTextLabel?.text = cleanAndSortedChatArray[indexPath.row].1
             
@@ -170,7 +170,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         } else {
             
         // Configure the cell...
-        let cell = tableView.dequeueReusableCellWithIdentifier("backgroundCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("backgroundCell", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = "\(cleanAndSortedArray[indexPath.row].1)" + "  \(cleanAndSortedArray[indexPath.row].2)"
         cell.detailTextLabel?.text = cleanAndSortedArray[indexPath.row].3
         
@@ -275,7 +275,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if let localNameKey: AnyObject = advertisementData[CBAdvertisementDataLocalNameKey]  {
   
-            myNameString = localNameKey as String
+            myNameString = localNameKey as! String
             var myTuple = (myUUIDString, myRSSIString, "\(myNameString)", "\(myMessageString)" )
             
             if myNameString!.hasPrefix(prefixString) || myNameString!.hasPrefix("GC") {
